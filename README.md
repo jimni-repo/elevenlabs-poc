@@ -26,7 +26,7 @@ ElevenLabs 에서는 CCaaS 환경 구성으로 GC 를 가이드하고 있다. [G
 - `customer_name = "John Smith"`
 - `system__override_first_message = "Hello! Welcome to our support line."`
 #### Output session variables
-ElevenAgents 로 부터 받을 변수는 Data Collection 을 통해 수집한 데이터만 가능하다. 자세한 내용은
+ElevenAgents 로 부터 받을 변수는 Data Collection 을 통해 수집한 데이터만 가능하다. 자세한 내용은 [Data Collection](https://github.com/jimni-repo/elevenlabs-poc/edit/main/README.md#data-collection) 참고
 
 ## ElevenLabs with Avaya
 
