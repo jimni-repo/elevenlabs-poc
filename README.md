@@ -37,7 +37,6 @@ ElevenLabs 에서는 CCaaS 환경 구성으로 GC 를 가이드하고 있다. ([
 
 ### Output session variables
 ElevenAgents 로 부터 받을 변수는 Data Collection 을 통해 수집한 데이터만 가능하다. 이 변수를 통하여 고객의 정보나 의도를 파악하여 GC Flow 에서 적절한 상담원으로 라우팅하도록 서비스 구현이 가능하다.
-자세한 내용은 [Data Collection](#data-collection) 참고
 
 # ElevenLabs with Avaya
 
@@ -147,7 +146,48 @@ Workflow 는 ElevenAgents에서 복잡한 대화 흐름을 설계할 수 있는 
 서로 다른 Agent 간의 대화 핸드오프를 지원합니다.
 
 #### Transfer to number node
+Agent 대화에서 전화 시스템을 통한 상담원으로 전환을 지원한다. 제한 내용은 [Transfer to number](https://elevenlabs.io/docs/eleven-agents/customization/tools/system-tools/transfer-to-number#overview) 참고한다.
 
 #### End node
+통화 종료할 때 사용한다.
 
-## Data Collection
+### Edges and flow contro
+Edge 는 Workflow 내 노드간 대화 흐름을 정의한다. Edge 는 양방향으로 정의가능하며 각각 Forward Edge, Backword Edge 라고 부른다. Forward Edges 는 다음 Node 로 이동시킨다. Backward Edges 는 이전 Node 루프될 수 있게 하여 반복적인 상호작용과 재시도 로직을 가능하게 한다.
+
+이동 조건으로는 `LLM Condition`, `Expression`, `None` 타입을 지정할 수있다.
+
+- **LLM Condition**: Prompt 를 통한 동적 대화 흐름을 만든다.
+- **Expression**: 변수와 구조화된 데이터 기반의 조건부 논리를 통해 흐름을 만든다.
+- **None**: 조건 없이 이동한다.
+
+## Knowledge base
+Agent 가 참고할 지식 기반을 설정하여 도메인 특화된 정보를 제공할 수 있다. `URL`, `Files`, `Text` 로 설정가능하다. 지식기반은 Workspace 단위로 구성 가능하고 각 Agent 에 독립적인 구성이 필요한 경우 Subagent 의 지식 기반 설정으로 가능한 것으로 보인다.
+
+## Tools
+외부 시스템과의 통합을 위한 여러 Tool 기능을 제공한다. 
+
+- Client Tools
+- Server Tools (Webhook)
+- MCP Tools
+- System Tools
+
+`Client Tools`는 Web browser 나 Mobile 의 action 에 따른 assist 기능이므로 콜 시스템에서는 사용하지 않는다. 고객사 환경에서는 외부 시스템 연동이나 기간계 시스템 연동을 위해 `Server Tools`를 많이 사용할 것으로 예상된다. 단, 고객사의 기간계 서버에 직접 연동하기 위한 구성확인이 먼저 필요해 보인다.
+
+> [!NOTE]
+>
+> ElevenLabs 답변
+>
+> * Private Deployments (독립 VPC 및 AWS 환경 구축)
+> ElevenLabs는 일반적인 SaaS 환경 외에도 고객이 데이터 통제권을 완전히 확보할 수 있도록 *VPC(Virtual Private Cloud) 기반의 프라이빗 배포(Private Deployments)*를 지원합니다. 'Agents on AWS' 및 전용 VPC 인프라 구성이 제공됩니다. 따라서 전용 VPC 환경을 구성할 경우, 해당 VPC와 고객사의 내부망을 AWS Direct Connect나 PrivateLink로 연결하는 아키텍처를 구현할 수 있습니다.
+> * On-Premise (설치형) 및 망분리(Air-gapped) 환경 지원
+> 클라우드 전용선 연결로도 내부 보안 규정을 충족하기 어려운 고객사를 위해, 고객사의 자체 인프라 내부에 직접 설치하는 *온프레미스(On-Premise) 옵션*을 제공합니다. 이 옵션은 외부 인터넷과 완전히 차단된 폐쇄망(Air-gapped) 구성에서도 작동이 가능합니다.
+
+### Server Tools (Webhook)
+REST 기반의 인터페이스로 외부 API 를 호출할 수 있다. 구성할 때 이 도구의 Description 을 통하여 LLM이 이해하고 언제 호출해야 할지 설정할 수 있다.
+
+### MCP Tools
+
+### System Tools
+
+## Personalization
+## Monitor
