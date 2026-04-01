@@ -38,8 +38,6 @@ ElevenLabs 에서는 CCaaS 환경 구성으로 GC 를 가이드하고 있다. ([
 ### Output session variables
 ElevenAgents 로 부터 받을 변수는 Data Collection 을 통해 수집한 데이터만 가능하다. 이 변수를 통하여 고객의 정보나 의도를 파악하여 GC Flow 에서 적절한 상담원으로 라우팅하도록 서비스 구현이 가능하다.
 
-# ElevenLabs with Avaya
-
 # ElevenAgents
 
 ## System Prompt
